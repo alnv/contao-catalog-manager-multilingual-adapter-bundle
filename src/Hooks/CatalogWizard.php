@@ -24,4 +24,16 @@ class CatalogWizard {
 
         return $arrField;
     }
+
+
+
+    public function parseCatalog( $arrCatalog ) {
+
+        if ( $arrCatalog['dataContainer'] == 'Multilingual' ) {
+
+            $GLOBALS['CM_MODELS'][ $arrCatalog['table'] ] = 'Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models\MultilingualDynModel';
+        }
+
+        return $arrCatalog;
+    }
 }

@@ -2,6 +2,7 @@
 
 $GLOBALS['TL_HOOKS']['loadVirtualDataContainer'][] = [ 'catalogmanagermultilingualadapter.hooks.virtualdatacontainer', 'generateVirtualDataContainerArray' ];
 $GLOBALS['TL_HOOKS']['parseCatalogField'][] = [ 'catalogmanagermultilingualadapter.hooks.catalogwizard', 'parseCatalogField' ];
+$GLOBALS['TL_HOOKS']['parseCatalog'][] = [ 'catalogmanagermultilingualadapter.hooks.catalogwizard', 'parseCatalog' ];
 
 $GLOBALS['CM_DATA_CONTAINERS'][] = 'Multilingual';
 
