@@ -31,6 +31,7 @@ class CatalogWizard {
 
         if ( $arrCatalog['dataContainer'] == 'Multilingual' ) {
 
+            $arrCatalog['_table'] = 't1';
             $GLOBALS['CM_MODELS'][ $arrCatalog['table'] ] = 'Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models\MultilingualDynModel';
         }
 
