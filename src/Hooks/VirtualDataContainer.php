@@ -14,6 +14,7 @@ class VirtualDataContainer {
 
             $objPage = new Page();
             $arrLanguages = $objPage->getLanguages();
+            $GLOBALS['TL_DCA'][ $strTable ]['config']['_table'] = 't1';
             $GLOBALS['TL_DCA'][ $strTable ]['config']['langPid'] = 'lid';
             $GLOBALS['TL_DCA'][ $strTable ]['config']['langColumnName'] = 'language';
             $GLOBALS['TL_DCA'][ $strTable ]['config']['fallbackLang'] = $arrLanguages['fallback'];
