@@ -1,6 +1,6 @@
 services:
-  catalogmanagermultilingualadapter.hooks.virtualdatacontainer:
-    class: Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Hooks\VirtualDataContainer
+  catalogmanagermultilingualadapter.hooks.datacontainer:
+    class: Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Hooks\DataContainer
     public: true
   catalogmanagermultilingualadapter.datacontainer.catalogfield:
     class: Alnv\ContaoCatalogManagerMultilingualAdapterBundle\DataContainer\CatalogField

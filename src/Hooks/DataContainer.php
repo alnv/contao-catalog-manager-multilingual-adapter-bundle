@@ -5,7 +5,7 @@ namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Hooks;
 use Alnv\ContaoCatalogManagerMultilingualAdapterBundle\DataContainer\Page;
 
 
-class VirtualDataContainer {
+class DataContainer {
 
 
     public function generateVirtualDataContainerArray( $strTable ) {
@@ -19,6 +19,15 @@ class VirtualDataContainer {
             $GLOBALS['TL_DCA'][ $strTable ]['config']['langColumnName'] = 'language';
             $GLOBALS['TL_DCA'][ $strTable ]['config']['fallbackLang'] = $arrLanguages['fallback'];
             $GLOBALS['TL_DCA'][ $strTable ]['config']['languages'] = $arrLanguages['languages'];
+        }
+    }
+
+
+    public function generateDataContainerArray( $strTable ) {
+
+        if ( $GLOBALS['TL_DCA'][ $strTable ]['config']['dataContainer'] == 'Multilingual' ) {
+
+            $GLOBALS['TL_DCA'][ $strTable ]['config']['_table'] = 't1';
         }
     }
 }
