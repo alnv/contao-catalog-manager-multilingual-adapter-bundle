@@ -5,12 +5,9 @@ namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models;
 use \Terminal42\DcMultilingualBundle\Model\Multilingual;
 use Contao\Model\Registry;
 
-
 class MultilingualDynModel extends Multilingual {
 
-
     public static $strTable = '';
-
 
     public function __construct( $objResult = null ) {
 
@@ -22,14 +19,12 @@ class MultilingualDynModel extends Multilingual {
         parent::__construct( $objResult );
     }
 
-
     public function createDynTable( $strTable, $objResult = null ) {
 
         static::$strTable = $strTable;
         static::$arrClassNames[ $strTable ] = 'Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models\MultilingualDynModel';
         parent::__construct( $objResult );
     }
-
 
     public static function findByIdOrAlias( $varId, array $arrOptions = [] ) {
 

@@ -2,9 +2,7 @@
 
 namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Hooks;
 
-
 class CatalogWizard {
-
 
     public function parseCatalogField( $arrField, $arrCatalogField ) {
 
@@ -24,8 +22,6 @@ class CatalogWizard {
 
         return $arrField;
     }
-
-
 
     public function parseCatalog( $arrCatalog ) {
 
