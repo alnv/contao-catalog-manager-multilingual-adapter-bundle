@@ -6,10 +6,9 @@ use Alnv\ContaoCatalogManagerMultilingualAdapterBundle\DataContainer\Page;
 
 class DataContainer {
 
-    public function generateVirtualDataContainerArray( $strTable ) {
+    public function generateVirtualDataContainerArray($strTable) {
 
-        if ( isset( $GLOBALS['TL_DCA'][ $strTable ]['config']['dataContainer'] ) && $GLOBALS['TL_DCA'][ $strTable ]['config']['dataContainer'] == 'Multilingual' ) {
-
+        if (isset($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer']) && $GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] == 'Multilingual') {
             $objPage = new Page();
             $arrLanguages = $objPage->getLanguages();
             $GLOBALS['TL_DCA'][ $strTable ]['config']['_table'] = 't1';
@@ -20,11 +19,9 @@ class DataContainer {
         }
     }
 
-    public function generateDataContainerArray( $strTable ) {
-
-        if ( $GLOBALS['TL_DCA'][ $strTable ]['config']['dataContainer'] == 'Multilingual' ) {
-
-            $GLOBALS['TL_DCA'][ $strTable ]['config']['_table'] = 't1';
+    public function generateDataContainerArray($strTable) {
+        if ($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] == 'Multilingual') {
+            $GLOBALS['TL_DCA'][$strTable]['config']['_table'] = 't1';
         }
     }
 }
