@@ -18,8 +18,20 @@ class Changelanguage {
         }
 
         $strTable = $GLOBALS['CM_MASTER']['_table'];
+        if (!$strTable) {
+            return null;
+        }
+
+        \Controller::loadDataContainer($strTable);
+        if ($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] != 'Multilingual') {
+            return null;
+        }
+
+        $strLanguageColumn = $GLOBALS['TL_DCA'][$strTable]['config']['langColumnName'];
+        $strLangPidColumn = $GLOBALS['TL_DCA'][$strTable]['config']['langPid'];
+
         $ojCurrentEntity = \Database::getInstance()->prepare('SELECT * FROM ' . $strTable . ' WHERE `alias`=?')->limit(1)->execute(\Input::get('auto_item'));
-        $strLangPid = $ojCurrentEntity->langPid;
+        $strLangPid = $ojCurrentEntity->{$strLangPidColumn};
 
         if (!$strLangPid) {
             $strLangPid = $ojCurrentEntity->id;
@@ -28,12 +40,19 @@ class Changelanguage {
         $arrValues = [$strLanguage, $strLangPid];
 
         if (!$strLanguage) {
-            $strQuery = ' WHERE `language`=? AND id=?';
+            $strQuery = ' WHERE `'.$strLanguageColumn.'`=? AND id=?';
         } else {
-            $strQuery = ' WHERE `language`=? AND langPid=?';
+            $strQuery = ' WHERE `'.language.'`=? AND '.$strLangPidColumn.'=?';
         }
 
-        $objTranslations = \Database::getInstance()->prepare('SELECT alias FROM ' . $strTable . $strQuery)->limit(1)->execute($arrValues);
+        $objTranslations = \Database::getInstance()
+            ->prepare('SELECT alias FROM ' . $strTable . $strQuery)
+            ->limit(1)
+            ->execute($arrValues);
+        if (!$objTranslations->numRows) {
+            return null;
+        }
+
         $objEvent->getUrlParameterBag()->setUrlAttribute('items', $objTranslations->alias);
     }
 }
