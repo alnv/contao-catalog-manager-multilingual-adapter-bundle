@@ -33,8 +33,22 @@ class MultilingualDynModel extends Multilingual {
         if (!isset($arrOptions['value']) && !is_array($arrOptions['value'])) {
             $arrOptions['value'] = [];
         }
-        $arrOptions['column'][] = !preg_match('/^[1-9]\d*$/', $varId) ? "t1.alias=?" : "t1.id=?";
-        $arrOptions['value'][] = $varId;
+
+        $strAliasColumn = 'alias';
+        if (preg_match('/^[1-9]\d*$/', $varId)) {
+            $strAliasColumn = 'id';
+        }
+
+        if (isset($GLOBALS['TL_DCA'][static::getTable()]) && $GLOBALS['TL_DCA'][static::getTable()]['fields']['alias']['eval']['isMultilingualAlias']) {
+            $strColumn = '(t1.'.$strAliasColumn.'=? OR t2.'.$strAliasColumn.'=?)';
+            $arrOptions['value'][] = $varId;
+            $arrOptions['value'][] = $varId;
+        } else {
+            $strColumn = 't1.' . $strAliasColumn . '=?';
+            $arrOptions['value'][] = $varId;
+        }
+
+        $arrOptions['column'][] = $strColumn;
         $arrOptions['limit'] = 1;
         $arrOptions['return'] = 'Model';
 
