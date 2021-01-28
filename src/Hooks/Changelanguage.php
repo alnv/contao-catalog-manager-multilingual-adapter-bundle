@@ -24,6 +24,9 @@ class Changelanguage {
 
         \Controller::loadDataContainer($strTable);
         if ($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] != 'Multilingual') {
+
+            $ojCurrentEntity = \Database::getInstance()->prepare('SELECT * FROM ' . $strTable . ' WHERE `alias`=?')->limit(1)->execute(\Input::get('auto_item'));
+            $objEvent->getUrlParameterBag()->setUrlAttribute('items', $ojCurrentEntity->alias);
             return null;
         }
 
