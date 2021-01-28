@@ -42,7 +42,7 @@ class Changelanguage {
         if (!$strLanguage) {
             $strQuery = ' WHERE `'.$strLanguageColumn.'`=? AND id=?';
         } else {
-            $strQuery = ' WHERE `'.language.'`=? AND '.$strLangPidColumn.'=?';
+            $strQuery = ' WHERE `'.$strLanguageColumn.'`=? AND '.$strLangPidColumn.'=?';
         }
 
         $objTranslations = \Database::getInstance()
