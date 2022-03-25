@@ -32,7 +32,8 @@
   "require": {
     "php":">=7.1",
     "contao/core-bundle":"~4.4",
-    "terminal42/dc_multilingual": "^3.0|^2.1"
+    "terminal42/dc_multilingual": "^3.0|^2.1",
+    "alnv/catalog-manager-bundle": "self.version"
   },
   "config": {
     "preferred-install": "dist"
