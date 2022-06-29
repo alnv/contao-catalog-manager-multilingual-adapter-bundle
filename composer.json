@@ -30,9 +30,7 @@
     ]
   },
   "require": {
-    "contao/core-bundle":"~4.9",
-    "terminal42/dc_multilingual": "^3.0|^2.1",
-    "alnv/catalog-manager-bundle": "^2.0"
+    "contao/core-bundle":"~4.9"
   },
   "config": {
     "preferred-install": "dist"
