@@ -21,7 +21,7 @@ class DataContainer {
     }
 
     public function generateDataContainerArray($strTable) {
-        if ($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] == 'Multilingual') {
+        if (isset($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer']) && $GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] == 'Multilingual') {
             $GLOBALS['TL_DCA'][$strTable]['config']['_table'] = 't1';
         }
     }
