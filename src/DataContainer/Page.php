@@ -23,9 +23,6 @@ class Page {
             }
         }
 
-        var_dump($arrReturn);
-        exit;
-
         return $arrReturn;
     }
 }
