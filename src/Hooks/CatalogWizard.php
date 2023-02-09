@@ -7,11 +7,12 @@ class CatalogWizard {
     public function parseCatalogField($arrField, $arrCatalogField) {
 
         if ($arrCatalogField['translatableFor']) {
+
             $arrLanguages = \StringUtil::deserialize($arrCatalogField['translatableFor'], true);
+
             if (in_array('*', $arrLanguages)) {
                 $arrField['eval']['translatableFor'] = '*';
-            }
-            else {
+            } else {
                 $arrField['eval']['translatableFor'] = $arrLanguages;
             }
         }
@@ -22,7 +23,8 @@ class CatalogWizard {
     public function parseCatalog($arrCatalog) {
 
         if ($arrCatalog['dataContainer'] == 'Multilingual') {
-            $arrCatalog['_table'] = 't1';
+
+            $arrCatalog['_table'] = $arrCatalog['table'];
             $GLOBALS['CM_MODELS'][$arrCatalog['table']] = 'Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models\MultilingualDynModel';
         }
 

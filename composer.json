@@ -31,7 +31,7 @@
   },
   "require": {
     "contao/core-bundle":"~4.9",
-    "terminal42/dc_multilingual": "^3.0"
+    "terminal42/dc_multilingual": "^4.3"
   },
   "config": {
     "preferred-install": "dist"

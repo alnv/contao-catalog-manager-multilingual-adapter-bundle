@@ -2,8 +2,7 @@
 
 namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models;
 
-use \Terminal42\DcMultilingualBundle\Model\Multilingual;
-use Contao\Model\Registry;
+use Terminal42\DcMultilingualBundle\Model\Multilingual;
 
 class MultilingualDynModel extends Multilingual {
 
@@ -11,7 +10,7 @@ class MultilingualDynModel extends Multilingual {
 
     public function __construct($objResult = null) {
 
-        if ( !static::$strTable ) {
+        if (!static::$strTable) {
             return null;
         }
 
@@ -40,11 +39,11 @@ class MultilingualDynModel extends Multilingual {
         }
 
         if (isset($GLOBALS['TL_DCA'][static::getTable()]) && $GLOBALS['TL_DCA'][static::getTable()]['fields']['alias']['eval']['isMultilingualAlias']) {
-            $strColumn = '(t1.'.$strAliasColumn.'=? OR t2.'.$strAliasColumn.'=?)';
+            $strColumn = '('.static::getTable().'.'.$strAliasColumn.'=? OR translation.'.$strAliasColumn.'=?)';
             $arrOptions['value'][] = $varId;
             $arrOptions['value'][] = $varId;
         } else {
-            $strColumn = 't1.' . $strAliasColumn . '=?';
+            $strColumn = static::getTable() . '.' . $strAliasColumn . '=?';
             $arrOptions['value'][] = $varId;
         }
 

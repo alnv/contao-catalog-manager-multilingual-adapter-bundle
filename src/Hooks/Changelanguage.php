@@ -18,6 +18,7 @@ class Changelanguage {
         }
 
         $strTable = $GLOBALS['CM_MASTER']['_table'];
+
         if (!$strTable) {
             return null;
         }
