@@ -4,11 +4,13 @@ namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models;
 
 use Terminal42\DcMultilingualBundle\Model\Multilingual;
 
-class MultilingualDynModel extends Multilingual {
+class MultilingualDynModel extends Multilingual
+{
 
     public static $strTable = '';
 
-    public function __construct($objResult = null) {
+    public function __construct($objResult = null)
+    {
 
         if (!static::$strTable) {
             return null;
@@ -17,14 +19,16 @@ class MultilingualDynModel extends Multilingual {
         parent::__construct($objResult);
     }
 
-    public function createDynTable($strTable, $objResult = null) {
+    public function createDynTable($strTable, $objResult = null)
+    {
 
         static::$strTable = $strTable;
         static::$arrClassNames[$strTable] = 'Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models\MultilingualDynModel';
         parent::__construct($objResult);
     }
 
-    public static function findByIdOrAlias($varId, array $arrOptions=[]) {
+    public static function findByIdOrAlias($varId, array $arrOptions = [])
+    {
 
         if (!isset($arrOptions['column']) && !is_array($arrOptions['column'])) {
             $arrOptions['column'] = [];
@@ -39,7 +43,7 @@ class MultilingualDynModel extends Multilingual {
         }
 
         if (isset($GLOBALS['TL_DCA'][static::getTable()]) && $GLOBALS['TL_DCA'][static::getTable()]['fields']['alias']['eval']['isMultilingualAlias']) {
-            $strColumn = '('.static::getTable().'.'.$strAliasColumn.'=? OR translation.'.$strAliasColumn.'=?)';
+            $strColumn = '(' . static::getTable() . '.' . $strAliasColumn . '=? OR translation.' . $strAliasColumn . '=?)';
             $arrOptions['value'][] = $varId;
             $arrOptions['value'][] = $varId;
         } else {

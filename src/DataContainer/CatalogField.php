@@ -2,13 +2,15 @@
 
 namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\DataContainer;
 
-class CatalogField {
+class CatalogField
+{
 
-    public function getLanguages() {
+    public function getLanguages()
+    {
 
         $objPage = new Page();
         $arrPages = $objPage->getLanguages();
-        $arrLanguages =  $arrPages['languages'] ?? [];
+        $arrLanguages = $arrPages['languages'] ?? [];
         array_unshift($arrLanguages, '*');
 
         return $arrLanguages;

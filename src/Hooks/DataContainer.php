@@ -4,9 +4,11 @@ namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Hooks;
 
 use Alnv\ContaoCatalogManagerMultilingualAdapterBundle\DataContainer\Page;
 
-class DataContainer {
+class DataContainer
+{
 
-    public function generateVirtualDataContainerArray($strTable) {
+    public function generateVirtualDataContainerArray($strTable)
+    {
 
         if (isset($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer']) && $GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] == 'Multilingual') {
 
@@ -22,7 +24,8 @@ class DataContainer {
         }
     }
 
-    public function generateDataContainerArray($strTable) {
+    public function generateDataContainerArray($strTable)
+    {
 
         if (isset($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer']) && $GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] == 'Multilingual') {
 

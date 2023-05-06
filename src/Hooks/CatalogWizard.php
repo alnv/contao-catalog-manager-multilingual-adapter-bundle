@@ -2,13 +2,17 @@
 
 namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Hooks;
 
-class CatalogWizard {
+use Contao\StringUtil;
 
-    public function parseCatalogField($arrField, $arrCatalogField) {
+class CatalogWizard
+{
+
+    public function parseCatalogField($arrField, $arrCatalogField)
+    {
 
         if ($arrCatalogField['translatableFor']) {
 
-            $arrLanguages = \StringUtil::deserialize($arrCatalogField['translatableFor'], true);
+            $arrLanguages = StringUtil::deserialize($arrCatalogField['translatableFor'], true);
 
             if (in_array('*', $arrLanguages)) {
                 $arrField['eval']['translatableFor'] = '*';
@@ -20,7 +24,8 @@ class CatalogWizard {
         return $arrField;
     }
 
-    public function parseCatalog($arrCatalog) {
+    public function parseCatalog($arrCatalog)
+    {
 
         if ($arrCatalog['dataContainer'] == 'Multilingual') {
 

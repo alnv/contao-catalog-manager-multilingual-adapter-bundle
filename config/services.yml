@@ -3,8 +3,8 @@ services:
     class: Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Hooks\DataContainer
     public: true
   catalogmanagermultilingualadapter.hooks.changelanguage:
-      class: Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Hooks\Changelanguage
-      public: true
+    class: Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Hooks\Changelanguage
+    public: true
   catalogmanagermultilingualadapter.datacontainer.catalogfield:
     class: Alnv\ContaoCatalogManagerMultilingualAdapterBundle\DataContainer\CatalogField
     public: true

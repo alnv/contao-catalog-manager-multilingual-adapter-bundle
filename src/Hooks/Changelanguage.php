@@ -2,9 +2,16 @@
 
 namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Hooks;
 
-class Changelanguage {
+use Contao\Controller;
+use Contao\Database;
+use Contao\Input;
+use Terminal42\ChangeLanguage\Event\ChangelanguageNavigationEvent;
 
-    public function onChangelanguageNavigation(\Terminal42\ChangeLanguage\Event\ChangelanguageNavigationEvent $objEvent) {
+class Changelanguage
+{
+
+    public function onChangelanguageNavigation(ChangelanguageNavigationEvent $objEvent)
+    {
 
         if (empty($GLOBALS['CM_MASTER'])) {
             return null;
@@ -23,10 +30,10 @@ class Changelanguage {
             return null;
         }
 
-        \Controller::loadDataContainer($strTable);
+        Controller::loadDataContainer($strTable);
         if ($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] != 'Multilingual') {
 
-            $ojCurrentEntity = \Database::getInstance()->prepare('SELECT * FROM ' . $strTable . ' WHERE `alias`=?')->limit(1)->execute(\Input::get('auto_item'));
+            $ojCurrentEntity = Database::getInstance()->prepare('SELECT * FROM ' . $strTable . ' WHERE `alias`=?')->limit(1)->execute(Input::get('auto_item'));
             $objEvent->getUrlParameterBag()->setUrlAttribute('items', $ojCurrentEntity->alias);
             return null;
         }
@@ -34,7 +41,7 @@ class Changelanguage {
         $strLanguageColumn = $GLOBALS['TL_DCA'][$strTable]['config']['langColumnName'];
         $strLangPidColumn = $GLOBALS['TL_DCA'][$strTable]['config']['langPid'];
 
-        $ojCurrentEntity = \Database::getInstance()->prepare('SELECT * FROM ' . $strTable . ' WHERE `alias`=?')->limit(1)->execute(\Input::get('auto_item'));
+        $ojCurrentEntity = Database::getInstance()->prepare('SELECT * FROM ' . $strTable . ' WHERE `alias`=?')->limit(1)->execute(Input::get('auto_item'));
         $strLangPid = $ojCurrentEntity->{$strLangPidColumn};
 
         if (!$strLangPid) {
@@ -44,12 +51,12 @@ class Changelanguage {
         $arrValues = [$strLanguage, $strLangPid];
 
         if (!$strLanguage) {
-            $strQuery = ' WHERE `'.$strLanguageColumn.'`=? AND id=?';
+            $strQuery = ' WHERE `' . $strLanguageColumn . '`=? AND id=?';
         } else {
-            $strQuery = ' WHERE `'.$strLanguageColumn.'`=? AND '.$strLangPidColumn.'=?';
+            $strQuery = ' WHERE `' . $strLanguageColumn . '`=? AND ' . $strLangPidColumn . '=?';
         }
 
-        $objTranslations = \Database::getInstance()
+        $objTranslations = Database::getInstance()
             ->prepare('SELECT alias FROM ' . $strTable . $strQuery)
             ->limit(1)
             ->execute($arrValues);
