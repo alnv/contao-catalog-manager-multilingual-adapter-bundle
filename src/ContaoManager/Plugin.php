@@ -2,32 +2,27 @@
 
 namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\ContaoManager;
 
+use Alnv\ContaoCatalogManagerBundle\AlnvContaoCatalogManagerBundle;
+use Alnv\ContaoCatalogManagerMultilingualAdapterBundle\AlnvContaoCatalogManagerMultilingualAdapterBundle;
+use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
-use Contao\ManagerPlugin\Routing\RoutingPluginInterface;
-use Symfony\Component\Config\Loader\LoaderResolverInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
+use Terminal42\DcMultilingualBundle\Terminal42DcMultilingualBundle;
 
-
-class Plugin implements BundlePluginInterface, RoutingPluginInterface
+class Plugin implements BundlePluginInterface
 {
 
     public function getBundles(ParserInterface $parser)
     {
 
         return [
-            BundleConfig::create('Alnv\ContaoCatalogManagerMultilingualAdapterBundle\AlnvContaoCatalogManagerMultilingualAdapterBundle')
-                ->setLoadAfter(['Contao\CoreBundle\ContaoCoreBundle', 'Alnv\ContaoCatalogManagerBundle\AlnvContaoCatalogManagerBundle', 'Terminal42\DcMultilingualBundle\Terminal42DcMultilingualBundle'])
-                ->setReplace(['contao-catalog-manager-multilingual-adapter-bundle']),
+            BundleConfig::create(AlnvContaoCatalogManagerMultilingualAdapterBundle::class)
+                ->setReplace(['contao-catalog-manager-multilingual-adapter-bundle'])
+                ->setLoadAfter([
+                    ContaoCoreBundle::class,
+                    AlnvContaoCatalogManagerBundle::class,
+                    Terminal42DcMultilingualBundle::class])
         ];
-    }
-
-    public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel)
-    {
-
-        return $resolver
-            ->resolve(__DIR__ . '/../Resources/config/routing.yml')
-            ->load(__DIR__ . '/../Resources/config/routing.yml');
     }
 }
