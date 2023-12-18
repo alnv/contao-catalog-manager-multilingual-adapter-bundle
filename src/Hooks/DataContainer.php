@@ -2,12 +2,13 @@
 
 namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Hooks;
 
+use  Terminal42\DcMultilingualBundle\Driver;
 use Alnv\ContaoCatalogManagerMultilingualAdapterBundle\DataContainer\Page;
 
 class DataContainer
 {
 
-    public function generateVirtualDataContainerArray($strTable)
+    public function generateVirtualDataContainerArray($strTable): void
     {
 
         if (isset($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer']) && $GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] == 'Multilingual') {
@@ -15,6 +16,7 @@ class DataContainer
             $objPage = new Page();
             $arrLanguages = $objPage->getLanguages();
 
+            $GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] = Driver::class;
             $GLOBALS['TL_DCA'][$strTable]['config']['_table'] = $strTable;
             $GLOBALS['TL_DCA'][$strTable]['config']['langPid'] = 'lid';
             $GLOBALS['TL_DCA'][$strTable]['config']['langColumnName'] = 'language';
@@ -24,7 +26,7 @@ class DataContainer
         }
     }
 
-    public function generateDataContainerArray($strTable)
+    public function generateDataContainerArray($strTable): void
     {
 
         if (isset($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer']) && $GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] == 'Multilingual') {

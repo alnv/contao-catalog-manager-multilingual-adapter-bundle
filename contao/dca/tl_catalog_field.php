@@ -17,6 +17,5 @@ $GLOBALS['TL_DCA']['tl_catalog_field']['fields']['translatableFor'] = [
     ],
     'options_callback' => ['catalogmanagermultilingualadapter.datacontainer.catalogfield', 'getLanguages'],
     'search' => true,
-    'exclude' => true,
     'sql' => ['type' => 'string', 'length' => 255, 'default' => '']
 ];

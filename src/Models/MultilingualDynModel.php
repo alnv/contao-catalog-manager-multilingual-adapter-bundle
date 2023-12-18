@@ -9,6 +9,8 @@ class MultilingualDynModel extends Multilingual
 
     public static $strTable = '';
 
+    public static array $arrClassNames = [];
+
     public function __construct($objResult = null)
     {
 

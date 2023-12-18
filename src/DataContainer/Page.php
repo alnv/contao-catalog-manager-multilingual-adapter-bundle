@@ -7,7 +7,7 @@ use Contao\Database;
 class Page
 {
 
-    public function getLanguages()
+    public function getLanguages(): array
     {
 
         $objDatabase = Database::getInstance();

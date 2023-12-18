@@ -7,7 +7,7 @@ use Contao\StringUtil;
 class CatalogWizard
 {
 
-    public function parseCatalogField($arrField, $arrCatalogField)
+    public function parseCatalogField($arrField, $arrCatalogField): array
     {
 
         if ($arrCatalogField['translatableFor']) {
@@ -24,7 +24,7 @@ class CatalogWizard
         return $arrField;
     }
 
-    public function parseCatalog($arrCatalog)
+    public function parseCatalog($arrCatalog): array
     {
 
         if ($arrCatalog['dataContainer'] == 'Multilingual') {
