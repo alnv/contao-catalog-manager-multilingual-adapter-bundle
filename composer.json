@@ -22,7 +22,7 @@
     }
   },
   "require": {
-    "contao/core-bundle":"~5.1",
+    "contao/core-bundle": "~4.13 || ~5.0",
     "terminal42/dc_multilingual": "^4.5",
     "terminal42/contao-changelanguage": "^3.6"
   },
