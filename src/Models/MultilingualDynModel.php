@@ -9,8 +9,6 @@ class MultilingualDynModel extends Multilingual
 
     public static $strTable = '';
 
-    public static array $arrClassNames = [];
-
     public function __construct($objResult = null)
     {
 
@@ -25,7 +23,11 @@ class MultilingualDynModel extends Multilingual
     {
 
         static::$strTable = $strTable;
-        static::$arrClassNames[$strTable] = 'Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models\MultilingualDynModel';
+
+        if (isset(static::$arrClassNames)) {
+            static::$arrClassNames[$strTable] = 'Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models\MultilingualDynModel';
+        }
+
         parent::__construct($objResult);
     }
 
