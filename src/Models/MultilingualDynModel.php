@@ -34,10 +34,11 @@ class MultilingualDynModel extends Multilingual
     public static function findByIdOrAlias($varId, array $arrOptions = [])
     {
 
-        if (!isset($arrOptions['column']) && !is_array($arrOptions['column'])) {
+        if (!isset($arrOptions['column']) || !is_array($arrOptions['column'])) {
             $arrOptions['column'] = [];
         }
-        if (!isset($arrOptions['value']) && !is_array($arrOptions['value'])) {
+
+        if (!isset($arrOptions['value']) || !is_array($arrOptions['value'])) {
             $arrOptions['value'] = [];
         }
 
