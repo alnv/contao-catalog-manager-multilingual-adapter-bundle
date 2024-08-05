@@ -34,7 +34,7 @@ class Changelanguage
         if ($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] != 'Multilingual') {
 
             $ojCurrentEntity = Database::getInstance()->prepare('SELECT * FROM ' . $strTable . ' WHERE `alias`=?')->limit(1)->execute(Input::get('auto_item'));
-            $objEvent->getUrlParameterBag()->setUrlAttribute('items', $ojCurrentEntity->alias);
+            $objEvent->getUrlParameterBag()->setUrlAttribute('auto_item', $ojCurrentEntity->alias);
             return null;
         }
 
@@ -64,6 +64,6 @@ class Changelanguage
             return null;
         }
 
-        $objEvent->getUrlParameterBag()->setUrlAttribute('items', $objTranslations->alias);
+        $objEvent->getUrlParameterBag()->setUrlAttribute('auto_item', $objTranslations->alias);
     }
 }
