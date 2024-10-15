@@ -11,7 +11,7 @@ class DataContainer
     public function generateVirtualDataContainerArray($strTable): void
     {
 
-        if (isset($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer']) && $GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] == 'Multilingual') {
+        if (isset($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer']) && ($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] == Driver::class || $GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] == 'Multilingual')) {
 
             $objPage = new Page();
             $arrLanguages = $objPage->getLanguages();
