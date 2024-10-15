@@ -47,7 +47,7 @@ class MultilingualDynModel extends Multilingual
             $strAliasColumn = 'id';
         }
 
-        if (isset($GLOBALS['TL_DCA'][static::getTable()]) && $GLOBALS['TL_DCA'][static::getTable()]['fields']['alias']['eval']['isMultilingualAlias']) {
+        if (isset($GLOBALS['TL_DCA'][static::getTable()]) && ($GLOBALS['TL_DCA'][static::getTable()]['fields']['alias']['eval']['isMultilingualAlias'] ?? false)) {
             $strColumn = '(' . static::getTable() . '.' . $strAliasColumn . '=? OR translation.' . $strAliasColumn . '=?)';
             $arrOptions['value'][] = $varId;
             $arrOptions['value'][] = $varId;
