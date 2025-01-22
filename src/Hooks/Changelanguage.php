@@ -61,7 +61,7 @@ class Changelanguage
         $objTranslations = Database::getInstance()
             ->prepare('SELECT alias FROM ' . $strTable . $strQuery)
             ->limit(1)
-            ->execute($arrValues);
+            ->execute(...$arrValues);
 
         if (!$objTranslations->numRows) {
             return;
