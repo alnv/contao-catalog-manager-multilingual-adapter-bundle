@@ -32,7 +32,6 @@ class Changelanguage
 
         Controller::loadDataContainer($strTable);
 
-
         if ($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] != 'Multilingual' && $GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] != 'Terminal42\DcMultilingualBundle\Driver') {
 
             $ojCurrentEntity = Database::getInstance()->prepare('SELECT * FROM ' . $strTable . ' WHERE `alias`=?')->limit(1)->execute(Input::get('auto_item'));
@@ -64,6 +63,10 @@ class Changelanguage
             ->execute(...$arrValues);
 
         if (!$objTranslations->numRows) {
+            return;
+        }
+
+        if (!$objTranslations->alias) {
             return;
         }
 
