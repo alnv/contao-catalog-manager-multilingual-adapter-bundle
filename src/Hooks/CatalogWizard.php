@@ -3,6 +3,7 @@
 namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Hooks;
 
 use Contao\StringUtil;
+use Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models\MultilingualDynModel;
 
 class CatalogWizard
 {
@@ -30,7 +31,7 @@ class CatalogWizard
         if ($arrCatalog['dataContainer'] == 'Multilingual') {
 
             $arrCatalog['_table'] = $arrCatalog['table'];
-            $GLOBALS['CM_MODELS'][$arrCatalog['table']] = 'Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models\MultilingualDynModel';
+            $GLOBALS['CM_MODELS'][$arrCatalog['table']] = MultilingualDynModel::class;
         }
 
         return $arrCatalog;

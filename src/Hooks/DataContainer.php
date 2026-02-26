@@ -30,7 +30,6 @@ class DataContainer
     {
 
         if (isset($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer']) && $GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] == 'Multilingual') {
-
             $GLOBALS['TL_DCA'][$strTable]['config']['_table'] = $strTable;
         }
     }

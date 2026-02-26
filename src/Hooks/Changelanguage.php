@@ -5,12 +5,13 @@ namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Hooks;
 use Contao\Controller;
 use Contao\Database;
 use Contao\Input;
+use Terminal42\DcMultilingualBundle\Driver;
 use Terminal42\ChangeLanguage\Event\ChangelanguageNavigationEvent;
 
 class Changelanguage
 {
 
-    public function onChangelanguageNavigation(ChangelanguageNavigationEvent $objEvent)
+    public function onChangelanguageNavigation(ChangelanguageNavigationEvent $objEvent): void
     {
 
         if (empty($GLOBALS['CM_MASTER'])) {
@@ -32,10 +33,11 @@ class Changelanguage
 
         Controller::loadDataContainer($strTable);
 
-        if ($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] != 'Multilingual' && $GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] != 'Terminal42\DcMultilingualBundle\Driver') {
+        if ($GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] != 'Multilingual' && $GLOBALS['TL_DCA'][$strTable]['config']['dataContainer'] != Driver::class) {
 
             $ojCurrentEntity = Database::getInstance()->prepare('SELECT * FROM ' . $strTable . ' WHERE `alias`=?')->limit(1)->execute(Input::get('auto_item'));
             $objEvent->getUrlParameterBag()->setUrlAttribute('auto_item', $ojCurrentEntity->alias);
+
             return;
         }
 

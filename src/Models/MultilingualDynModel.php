@@ -19,13 +19,13 @@ class MultilingualDynModel extends Multilingual
         parent::__construct($objResult);
     }
 
-    public function createDynTable($strTable, $objResult = null)
+    public function createDynTable($strTable, $objResult = null): void
     {
 
         static::$strTable = $strTable;
 
         if (isset(static::$arrClassNames)) {
-            static::$arrClassNames[$strTable] = 'Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models\MultilingualDynModel';
+            static::$arrClassNames[$strTable] = \Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models\MultilingualDynModel::class;
         }
 
         parent::__construct($objResult);
@@ -34,27 +34,26 @@ class MultilingualDynModel extends Multilingual
     public static function findByIdOrAlias($varId, array $arrOptions = [])
     {
 
-        if (!isset($arrOptions['column']) || !is_array($arrOptions['column'])) {
+        if (!isset($arrOptions['column']) || !\is_array($arrOptions['column'])) {
             $arrOptions['column'] = [];
         }
 
-        if (!isset($arrOptions['value']) || !is_array($arrOptions['value'])) {
+        if (!isset($arrOptions['value']) || !\is_array($arrOptions['value'])) {
             $arrOptions['value'] = [];
         }
 
         $strAliasColumn = 'alias';
-        if (preg_match('/^[1-9]\d*$/', $varId)) {
+        if (\preg_match('/^[1-9]\d*$/', $varId)) {
             $strAliasColumn = 'id';
         }
 
         if (isset($GLOBALS['TL_DCA'][static::getTable()]) && ($GLOBALS['TL_DCA'][static::getTable()]['fields']['alias']['eval']['isMultilingualAlias'] ?? false)) {
             $strColumn = '(' . static::getTable() . '.' . $strAliasColumn . '=? OR translation.' . $strAliasColumn . '=?)';
             $arrOptions['value'][] = $varId;
-            $arrOptions['value'][] = $varId;
         } else {
             $strColumn = static::getTable() . '.' . $strAliasColumn . '=?';
-            $arrOptions['value'][] = $varId;
         }
+        $arrOptions['value'][] = $varId;
 
         $arrOptions['column'][] = $strColumn;
         $arrOptions['limit'] = 1;

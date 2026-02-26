@@ -11,7 +11,8 @@ class CatalogField
         $objPage = new Page();
         $arrPages = $objPage->getLanguages();
         $arrLanguages = $arrPages['languages'] ?? [];
-        array_unshift($arrLanguages, '*');
+
+        \array_unshift($arrLanguages, '*');
 
         return $arrLanguages;
     }

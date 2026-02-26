@@ -1,9 +1,11 @@
 <?php
 
 foreach ($GLOBALS['TL_DCA']['tl_catalog_field']['palettes'] as $strName => $strPalette) {
+
     if (\in_array($strName, ['default', '__selector__'])) {
         continue;
     }
+
     $GLOBALS['TL_DCA']['tl_catalog_field']['palettes'][$strName] .= ';{multilingual_legend},translatableFor';
 }
 
