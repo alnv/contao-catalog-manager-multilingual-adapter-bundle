@@ -2,6 +2,7 @@
 
 namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Terminal42\DcMultilingualBundle\Model\Multilingual;
 
 class MultilingualDynModel extends Multilingual
@@ -13,7 +14,7 @@ class MultilingualDynModel extends Multilingual
     {
 
         if (!static::$strTable) {
-            return null;
+            return;
         }
 
         parent::__construct($objResult);
@@ -24,11 +25,15 @@ class MultilingualDynModel extends Multilingual
 
         static::$strTable = $strTable;
 
-        if (isset(static::$arrClassNames)) {
-            static::$arrClassNames[$strTable] = \Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models\MultilingualDynModel::class;
-        }
+        //if (isset(static::$arrClassNames)) {
+            //static::$arrClassNames[$strTable] = static::class;
+        //}
 
-        parent::__construct($objResult);
+        try {
+            parent::__construct($objResult);
+        } catch (\Exception $exception) {
+            //
+        }
     }
 
     public static function findByIdOrAlias($varId, array $arrOptions = [])
@@ -60,5 +65,35 @@ class MultilingualDynModel extends Multilingual
         $arrOptions['return'] = 'Model';
 
         return static::find($arrOptions);
+    }
+
+    protected static function applyOptionsToQueryBuilder(QueryBuilder $qb, array $options): void
+    {
+
+        if (!empty($options['column'])) {
+            if (\is_array($options['column'])) {
+                foreach ($options['column'] as $column) {
+                    $qb->andWhere($column);
+                }
+            } else {
+
+                $table = static::getTable();
+                $qb->andWhere("$table.{$options['column']}=?");
+            }
+        }
+
+        if (!empty($options['group'])) {
+            $qb->groupBy($options['group']);
+        }
+
+
+        if (!empty($options['having'])) {
+            $qb->having($options['having']);
+        }
+
+
+        if (!empty($options['order'])) {
+            $qb->orderBy($options['order'], '');
+        }
     }
 }
