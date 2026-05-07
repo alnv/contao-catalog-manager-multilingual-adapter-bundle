@@ -9,16 +9,17 @@ class Page
 
     public function getLanguages(): array
     {
-
         $arrReturn = ['languages' => [], 'fallback' => ''];
 
-        $objPages = Database::getInstance()->prepare('SELECT * FROM tl_page WHERE `type`=?')->execute('root');
+        $objPages = Database::getInstance()
+            ->prepare('SELECT * FROM tl_page WHERE `type`=?')
+            ->execute('root');
+
         if (!$objPages->numRows) {
             return [];
         }
 
         while ($objPages->next()) {
-
             if ($objPages->fallback && !$arrReturn['fallback']) {
                 $arrReturn['fallback'] = $objPages->language;
             }
