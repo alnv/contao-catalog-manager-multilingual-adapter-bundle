@@ -20,8 +20,8 @@ class DataContainer
             $GLOBALS['TL_DCA'][$strTable]['config']['_table'] = $strTable;
             $GLOBALS['TL_DCA'][$strTable]['config']['langPid'] = 'lid';
             $GLOBALS['TL_DCA'][$strTable]['config']['langColumnName'] = 'language';
-            // $GLOBALS['TL_DCA'][$strTable]['config']['fallbackLang'] = $arrLanguages['fallback'];
-            $GLOBALS['TL_DCA'][$strTable]['config']['languages'] = $arrLanguages['languages'];
+            $GLOBALS['TL_DCA'][$strTable]['config']['fallbackLang'] = $arrLanguages['fallback'] ?? '';
+            $GLOBALS['TL_DCA'][$strTable]['config']['languages'] = $arrLanguages['languages'] ?? [];
             $GLOBALS['TL_DCA'][$strTable]['fields']['alias']['eval']['isMultilingualAlias'] = true;
         }
     }
