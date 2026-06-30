@@ -2,7 +2,10 @@
 
 namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models;
 
+use Alnv\ContaoCatalogManagerBundle\Helper\Toolkit;
+use Contao\System;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Symfony\Component\HttpFoundation\Request;
 use Terminal42\DcMultilingualBundle\Model\Multilingual;
 
 class MultilingualDynModel extends Multilingual
@@ -10,30 +13,22 @@ class MultilingualDynModel extends Multilingual
 
     public static $strTable = '';
 
-    public function __construct($objResult = null)
+    public function __construct($objResult=null)
     {
-
-        if (!static::$strTable) {
-            return;
+        if (System::getContainer()
+                ->get('contao.routing.scope_matcher')
+                ->isBackendRequest(System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create('')) && !static::$strTable) {
+            static::$strTable = Toolkit::getTableByDo();
         }
 
         parent::__construct($objResult);
     }
 
-    public function createDynTable($strTable, $objResult = null): void
+    public static function createDynTable($strTable, $objResult = null)
     {
-
         static::$strTable = $strTable;
 
-        //if (isset(static::$arrClassNames)) {
-            //static::$arrClassNames[$strTable] = static::class;
-        //}
-
-        try {
-            parent::__construct($objResult);
-        } catch (\Exception $exception) {
-            //
-        }
+        return new static($objResult);
     }
 
     public static function findByIdOrAlias($varId, array $arrOptions = [])
