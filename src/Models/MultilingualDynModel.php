@@ -2,6 +2,9 @@
 
 namespace Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models;
 
+use Alnv\ContaoCatalogManagerBundle\Helper\Toolkit;
+use Contao\System;
+use Symfony\Component\HttpFoundation\Request;
 use Terminal42\DcMultilingualBundle\Model\Multilingual;
 
 class MultilingualDynModel extends Multilingual
@@ -11,6 +14,15 @@ class MultilingualDynModel extends Multilingual
 
     public function __construct($objResult = null)
     {
+        if (System::getContainer()
+                ->get('contao.routing.scope_matcher')
+                ->isBackendRequest(System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create('')) && !static::$strTable) {
+            self::$strTable = Toolkit::getTableByDo();
+        }
+
+        if (($GLOBALS['CM_TEMP_MODEL_TABLE'] && self::$strTable !== $GLOBALS['CM_TEMP_MODEL_TABLE'])) {
+            self::$strTable = $GLOBALS['CM_TEMP_MODEL_TABLE'];
+        }
 
         if (!static::$strTable) {
             return null;
@@ -21,14 +33,9 @@ class MultilingualDynModel extends Multilingual
 
     public function createDynTable($strTable, $objResult = null)
     {
+        self::$strTable = $strTable;
 
-        static::$strTable = $strTable;
-
-        if (isset(static::$arrClassNames)) {
-            static::$arrClassNames[$strTable] = 'Alnv\ContaoCatalogManagerMultilingualAdapterBundle\Models\MultilingualDynModel';
-        }
-
-        parent::__construct($objResult);
+        return new self($objResult);
     }
 
     public static function findByIdOrAlias($varId, array $arrOptions = [])
