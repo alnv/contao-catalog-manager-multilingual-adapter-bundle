@@ -19,7 +19,7 @@ class Page
         }
 
         while ($objPages->next()) {
-            if ($objPages->fallback) {
+            if ($objPages->fallback && !\in_array($objPages->language, $languages['fallbacks'])) {
                 $languages['fallbacks'][] = $objPages->language;
             }
 
